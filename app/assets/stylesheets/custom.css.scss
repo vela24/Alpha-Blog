@@ -1,0 +1,53 @@
+/* override bootstrap classes */
+@import 'bootstrap/dist/css/bootstrap';
+
+.navbar {
+	background-color: black !important;
+
+}
+
+.nav-link {
+	color: white !important;
+}
+
+#logo {
+	
+	float: left;
+	font-size: 1.7em;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	font-weight: 500;
+}
+
+.tad-green {
+	color: RGB(3,252,7) !important;
+}
+
+#home-container {
+	padding-top: 15px !important;
+}
+
+html,
+body {
+  height: 100%;
+} 
+
+#page-content {
+  flex: 1 0 auto;
+  background-color: lightgrey;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+}
+
+.jumbotron {
+	background-image: asset-url('typing_unsplash.jpg') !important;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	h1, p {
+		color: RGB(3,252,7);
+	}
+}
