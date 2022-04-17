@@ -1,7 +1,14 @@
 class UsersController < ApplicationController
 
 	def index 
-		@user = Users.all
+		@user = User.all
+	end
+
+	def show
+	  @user = User.find(params[:id])
+
+	  #pull articles in user profile
+	  @articles = @user.articles
 	end
 	def new
 		@user = User.new
