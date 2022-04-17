@@ -2,10 +2,12 @@ class ArticlesController < ApplicationController
 	before_action :set_article, only: [:edit, :show, :destroy, :update]
 
 	def index
-		@articles = Article.all
+		@articles = Article.paginate(page: params[:page], per_page: 5)
+
 	end
 
 	def show
+		@article = Article.find(params[:id])
 	end
 
 	def new
@@ -40,7 +42,7 @@ class ArticlesController < ApplicationController
 		@article = Article.find(params[:id])
 		@article.destroy
 		respond_to do |format|
-			format.html { redirect_to articles_url notice: 'Article was successfully deleted.' }
+			format.html { redirect_to articles_path notice: 'Article was successfully deleted.' }
         	format.json { head :no_content }
     	end
 	end
