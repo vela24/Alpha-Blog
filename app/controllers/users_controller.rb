@@ -44,7 +44,8 @@ class UsersController < ApplicationController
 	def destroy
 	  if @user.destroy
 	    # must add session user id to nil so session does not point to deleted user
-	    session[:user_id] = nil
+	    # check if current user is the user being deleted so you are not logged out upon deletion is the admin deleting another account
+	    session[:user_id] = nil if @user == current_user
 	    flash[:notice] = " Account successfully deleted"
 	    redirect_to articles_path
 	  else
@@ -63,8 +64,8 @@ class UsersController < ApplicationController
 	  @user = User.find(params[:id])
 	end
 	def require_same_user
-	  if current_user != @user
-	  	flash[:alert] = "You can only edit your account"
+	  if current_user != @user && !current_user.admin?
+	  	flash[:alert] = "You can only edit your own account"
 	  	redirect_to @users
 	  end
 	end
