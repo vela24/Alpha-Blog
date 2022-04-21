@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
 	before_action :set_category, only: [:show]
+	before_action :require_admin, only: [:create, :new]
 	def new
 		@category = Category.new
 	end
@@ -15,7 +16,7 @@ class CategoriesController < ApplicationController
 	end
 
 	def index
-
+		@categories = Category.paginate(page: params[:page], per_page: 5)
 	end
 
 	def show
@@ -28,6 +29,13 @@ class CategoriesController < ApplicationController
 	end
 	def category_params
 		params.require(:category).permit(:name)
+	end
+
+	def require_admin
+		if !(logged_in? &&	current_user.admin)
+			flash[:alert] = "Only admins can create Categories"
+			redirect_to categories_path
+		end
 	end
 
 end
